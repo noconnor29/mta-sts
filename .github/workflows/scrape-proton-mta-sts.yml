@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
 
     - name: Fetch MTA-STS Policy
       run: |
@@ -24,5 +26,3 @@ jobs:
         git add .well-known/mta-sts.txt
         git commit -m "Update MTA-STS policy on $(date +'%Y-%m-%d')"
         git push
-      env:
-        GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN }}
