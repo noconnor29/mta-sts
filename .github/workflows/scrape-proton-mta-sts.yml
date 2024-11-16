@@ -1,4 +1,4 @@
-name: Daily MTA-STS Scraper
+name: Daily MTA-STS Update
 
 on:
   schedule:
