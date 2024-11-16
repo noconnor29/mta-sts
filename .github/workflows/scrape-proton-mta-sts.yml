@@ -20,7 +20,7 @@ jobs:
     - name: Commit and push updated file
       run: |
         git config --global user.name "github-actions[bot]"
-        git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+        git config --global user.email "36704600+noconnor29@users.noreply.github.com."
         git add .well-known/mta-sts.txt
         git commit -m "Update MTA-STS policy on $(date +'%Y-%m-%d')"
         git push
