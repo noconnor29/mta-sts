@@ -6,7 +6,7 @@ on:
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
-  scrape:
+  update-mta-sts:
     runs-on: ubuntu-latest
 
     steps:
