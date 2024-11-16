@@ -1,4 +1,4 @@
-# MTA-STS Policy Management for noconnor.io
+# MTA-STS Policy Management for noconnor.io [![Daily MTA-STS Scraper](https://github.com/noconnor29/mta-sts/actions/workflows/scrape-proton-mta-sts.yml/badge.svg)](https://github.com/noconnor29/mta-sts/actions/workflows/scrape-proton-mta-sts.yml)
 
 This repository is configured to automatically fetch and maintain the latest [MTA-STS](https://datatracker.ietf.org/doc/html/rfc8461) (Mail Transfer Agent Strict Transport Security) policy file for my domain.
 ## What is MTA-STS?
