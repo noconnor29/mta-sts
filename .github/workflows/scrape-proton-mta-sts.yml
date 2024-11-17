@@ -26,10 +26,30 @@ jobs:
         # Replace mode with testing
         sed -i 's/^mode: .*/mode: testing/' .well-known/mta-sts.txt
 
-    - name: Commit and push updated file
+#    - name: Commit and push updated file
+#      run: |
+#        git config --global user.name "github-actions[bot]"
+#        git config --global user.email "36704600+noconnor29@users.noreply.github.com."
+#        git add .well-known/mta-sts.txt
+#        git commit -m "Update MTA-STS policy on $(date +'%Y-%m-%d')"
+#        git push
+
+    - name: Check for changes
+      id: check_changes
       run: |
         git config --global user.name "github-actions[bot]"
         git config --global user.email "36704600+noconnor29@users.noreply.github.com."
         git add .well-known/mta-sts.txt
+        if git diff --cached --quiet; then
+          echo "No changes detected."
+          echo "changes=false" >> $GITHUB_ENV
+        else
+          echo "Changes detected."
+          echo "changes=true" >> $GITHUB_ENV
+        fi
+
+    - name: Commit and push updated file
+      if: env.changes == 'true'
+      run: |
         git commit -m "Update MTA-STS policy on $(date +'%Y-%m-%d')"
         git push
