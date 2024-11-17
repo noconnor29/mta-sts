@@ -1,5 +1,5 @@
 version: STSv1
-mode: enforce
+mode: testing
 mx: mail.protonmail.ch
 mx: mailsec.protonmail.ch
-max_age: 600
+max_age: 86400
