@@ -31,8 +31,9 @@ This record indicates that a domain requires MTA-STS be enforced (cert validatio
 This repository automates the fetching and management of Proton's MTA-STS policy file to update my own:
 
 1. Fetches the latest MTA-STS policy daily using a GitHub Action.
-2. Overwrites the policy file stored at .well-known/mta-sts.txt in the repository.
-3. Commits and pushes changes back to the repository.
+2. Overwrites the policy file stored at .well-known/mta-sts.txt in this repository.
+3. Commits and pushes changes back to the repository to publish the new policy.
+4. Updates the _mta-sts TXT record so senders will refresh their policy cache.
 
 ### Check Your Work
 1. https://www.hardenize.com/
