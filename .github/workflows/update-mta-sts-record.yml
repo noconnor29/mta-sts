@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
-  update-dns:
+  update-mta-sts:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,19 +20,34 @@ jobs:
         curl -s -X GET \
           -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
           -H "Content-Type: application/json" \
-          "https://api.cloudflare.com/client/v4/zones/${{ secrets.ZONE_ID }}/dns_records?type=TXT&name=_mta-sts.${{ secrets.DOMAIN }}" \          > dns_record.json
+          "https://api.cloudflare.com/client/v4/zones/${{ secrets.ZONE_ID }}/dns_records?type=TXT&name=_mta-sts.${{ secrets.DOMAIN }}" \
+          > dns_record.json
         cat dns_record.json
+        if [ $(jq '.result | length' dns_record.json) -eq 0 ]; then
+          echo "No DNS record found for _mta-sts.${{ secrets.DOMAIN }}. Exiting."
+          exit 1
+        fi
 
-    - name: Update DNS record with new id
+    - name: Extract Record ID
+      id: extract_id
+      run: |
+        RECORD_ID=$(jq -r '.result[0].id' dns_record.json)
+        echo "Record ID: $RECORD_ID"
+        echo "RECORD_ID=$RECORD_ID" >> $GITHUB_ENV
+
+    - name: Update DNS record
       run: |
         NEW_ID=$(date +'%Y%m%d%H%M%S') # Generate a unique ID
-        RECORD_ID=$(jq -r '.result[0].id' dns_record.json) # Extract the record ID
         curl -s -X PUT \
           -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
           -H "Content-Type: application/json" \
-          "https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/dns_records?type=TXT&name=_mta-sts.${{ vars.DOMAIN }}" \          --data '{
+          "https://api.cloudflare.com/client/v4/zones/${{ secrets.ZONE_ID }}/dns_records/${{ env.RECORD_ID }}" \
+          --data '{
             "type": "TXT",
-            "name": "_mta-sts.${{ vars.DOMAIN }}",
+            "name": "_mta-sts.${{ secrets.DOMAIN }}",
             "content": "v=STSv1; id='"$NEW_ID"'"
           }'
         echo "Updated _mta-sts record with id: $NEW_ID"
+
+    - name: Log success
+      run: echo "DNS record updated successfully for _mta-sts.${{ secrets.DOMAIN }}"
