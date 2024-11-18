@@ -1,4 +1,5 @@
-# MTA-STS Policy Management for noconnor.io [![Update MTA-STS Policy](https://github.com/noconnor29/mta-sts/actions/workflows/scrape-proton-mta-sts.yml/badge.svg)](https://github.com/noconnor29/mta-sts/actions/workflows/scrape-proton-mta-sts.yml)
+# MTA-STS Policy Management for noconnor.io
+[![Update Policy File](https://github.com/noconnor29/mta-sts/actions/workflows/update-mta-sts-policy.yml/badge.svg)](https://github.com/noconnor29/mta-sts/actions/workflows/update-mta-sts-policy.yml) [![Update DNS Record](https://github.com/noconnor29/mta-sts/actions/workflows/update-mta-sts-record.yml/badge.svg)](https://github.com/noconnor29/mta-sts/actions/workflows/update-mta-sts-record.yml)
 
 This repository is configured to automatically fetch and maintain the latest [MTA-STS](https://datatracker.ietf.org/doc/html/rfc8461) (Mail Transfer Agent Strict Transport Security) policy file for my domain.
 ## What is MTA-STS?
