@@ -1,4 +1,4 @@
-name: Update _mta-sts DNS Record
+name: Update DNS Record
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
-  update-mta-sts-record:
+  update-dns:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
         curl -s -X GET \
           -H "Authorization: Bearer ${{ secrets.CLOUDFLARE_API_TOKEN }}" \
           -H "Content-Type: application/json" \
-          "https://api.cloudflare.com/client/v4/zones/${{ vars.ZONE_ID }}/dns_records?type=TXT&name=_mta-sts.${{ vars.DOMAIN }}" \          > dns_record.json
+          "https://api.cloudflare.com/client/v4/zones/${{ secrets.ZONE_ID }}/dns_records?type=TXT&name=_mta-sts.${{ secrets.DOMAIN }}" \          > dns_record.json
         cat dns_record.json
 
     - name: Update DNS record with new id
