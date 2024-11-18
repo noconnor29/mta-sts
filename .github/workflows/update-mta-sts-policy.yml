@@ -1,4 +1,4 @@
-name: Update MTA-STS
+name: Update Policy File
 
 on:
   schedule:
