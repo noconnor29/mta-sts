@@ -1,4 +1,4 @@
-name: Daily MTA-STS Update
+name: Update MTA-STS
 
 on:
   schedule:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
-  update-mta-sts:
+  update-mta-sts-policy:
     runs-on: ubuntu-latest
 
     steps:
