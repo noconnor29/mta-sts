@@ -15,7 +15,7 @@ jobs:
       with:
         token: ${{ secrets.ACCESS_TOKEN }}
 
-    - name: Fetch MTA-STS Policy
+    - name: Fetch current Proton MTA-STS policy
       run: |
         curl -s https://mta-sts.protonmail.com/.well-known/mta-sts.txt > .well-known/mta-sts.txt
 
@@ -34,14 +34,14 @@ jobs:
         git add .well-known/mta-sts.txt
         if git diff --cached --quiet; then
           echo "No changes detected."
-          echo "changes=false" >> $GITHUB_ENV
+          echo "::set-output name=changes::false"
         else
           echo "Changes detected."
-          echo "changes=true" >> $GITHUB_ENV
+          echo "::set-output name=changes::true"
         fi
 
     - name: Commit and push updated file
-      if: env.changes == 'true'
+      if: steps.check_changes.outputs.changes == 'true'
       run: |
         git commit -m "Update MTA-STS policy on $(date +'%Y-%m-%d')"
         git push
