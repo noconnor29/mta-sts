@@ -33,15 +33,15 @@ jobs:
         git config --global user.email "36704600+noconnor29@users.noreply.github.com."
         git add .well-known/mta-sts.txt
         if git diff --cached --quiet; then
+          echo "changes=false" >> $GITHUB_ENV
           echo "No changes detected."
-          echo "::set-output name=changes::false"
         else
+          echo "changes=true" >> $GITHUB_ENV
           echo "Changes detected."
-          echo "::set-output name=changes::true"
         fi
 
     - name: Commit and push updated file
-      if: steps.check_changes.outputs.changes == 'true'
+      if: env.changes == 'true'
       run: |
         git commit -m "Update MTA-STS policy on $(date +'%Y-%m-%d')"
         git push
