@@ -19,12 +19,12 @@ jobs:
       run: |
         curl -s https://mta-sts.protonmail.com/.well-known/mta-sts.txt > .well-known/mta-sts.txt
 
-    - name: Replace `max_age` and `mode` values (Testing)
+    - name: Replace `max_age`
       run: |
         # Replace max_age with 86400
         sed -i 's/^max_age: .*/max_age: 86400/' .well-known/mta-sts.txt
         # Replace mode with testing
-        sed -i 's/^mode: .*/mode: testing/' .well-known/mta-sts.txt
+        #sed -i 's/^mode: .*/mode: testing/' .well-known/mta-sts.txt
 
     - name: Check for changes
       id: check_changes
