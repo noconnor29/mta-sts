@@ -37,3 +37,5 @@ mx: mailsec.protonmail.ch
 max_age: 604800
 ```
 This record indicates that a domain requires MTA-STS be enforced (cert validation and connection encryption) and that only certificates for the named MX systems should be accepted.
+
+Last Updated: 2025-03-09
